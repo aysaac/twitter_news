@@ -84,4 +84,4 @@ for x in strings:
     print('\n _________________________________________________')
 
 #%%
-nlp(strings[0]).ents[2].label_
+# nlp(strings[0]).ents[2].label_
