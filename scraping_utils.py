@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import numpy as np
 import pytz
-import nltk
+# import nltk
 import tweepy
 import datetime as dt
 from datetime import timedelta
