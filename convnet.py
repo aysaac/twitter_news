@@ -11,6 +11,6 @@ input_shape=(96,100)
 X_input = Input(input_shape)
 X = ZeroPadding2D((3, 3))(X_input)
 X = Conv2D(5,filters=6, kernel_size=1, strides=(2, 2), padding='valid', kernel_initializer=glorot_uniform(seed=0))(X)
-X = BatchNormalization(axis=3)(X, training=training)
+X = BatchNormalization(axis=3)(X, training=True)
 X = Activation('relu')(X)
 
