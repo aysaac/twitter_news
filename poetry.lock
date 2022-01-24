@@ -109,6 +109,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "datatable"
+version = "1.0.0"
+description = "Python library for fast multi-threaded data manipulation and munging."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+tests = ["pytest (>=3.1)", "docutils (>=0.14)"]
+optional = ["numpy", "pandas", "xlrd"]
+
+[[package]]
 name = "es-core-news-sm"
 version = "3.1.0"
 description = "Spanish pipeline optimized for CPU. Components: tok2vec, morphologizer, parser, senter, ner, attribute_ruler, lemmatizer."
@@ -958,7 +970,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.11"
-content-hash = "b9210937830ca6d953f865a9d44249507005ce3f92ba18f556928c4453baaeda"
+content-hash = "ea2dc30bfd50a5bf60e5a707fc68cefe69ac4546086feafb82a91b4c1d820928"
 
 [metadata.files]
 absl-py = [
@@ -1032,6 +1044,25 @@ cymem = [
     {file = "cymem-2.0.6-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:04676d696596b0db3f3c5a3936bab12fb6f24278921a6622bb185e61765b2b4d"},
     {file = "cymem-2.0.6-cp39-cp39-win_amd64.whl", hash = "sha256:c59293b232b53ebb47427f16cf648e937022f489cff36c11d1d8a1f0075b6609"},
     {file = "cymem-2.0.6.tar.gz", hash = "sha256:169725b5816959d34de2545b33fee6a8021a6e08818794a426c5a4f981f17e5e"},
+]
+datatable = [
+    {file = "datatable-1.0.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:a9350f8a3539ac984543413f8055cadfa9f3171b6ce415a41b980c9fab614b4a"},
+    {file = "datatable-1.0.0-cp36-cp36m-manylinux2014_ppc64le.whl", hash = "sha256:6eac42709214a53fe2624b586d66040d053dbcdb94436c96edc3628a79c9e61d"},
+    {file = "datatable-1.0.0-cp36-cp36m-manylinux_2_12_x86_64.whl", hash = "sha256:2d3fa399273aaa5498c29a304e0558ce8f0bbe836305e3c1f2016029024f42c6"},
+    {file = "datatable-1.0.0-cp36-cp36m-win_amd64.whl", hash = "sha256:3a35e562ffcb46c0f02bd9f7d9c89248122748691733cf0f275bccb3cd2b7255"},
+    {file = "datatable-1.0.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:5b0f5cc118d78dafb5fd8b3512afbd798d6954f71ff171ba2d64e75e088fe34c"},
+    {file = "datatable-1.0.0-cp37-cp37m-manylinux2014_ppc64le.whl", hash = "sha256:a3e315019a1bae11e1b4ce84d81e557fb4915b6597033d46821a27e249bfdaeb"},
+    {file = "datatable-1.0.0-cp37-cp37m-manylinux_2_12_x86_64.whl", hash = "sha256:a83e750079591eda72b07a1f53a5683479b06118b41b677a88d959044ebf25d8"},
+    {file = "datatable-1.0.0-cp37-cp37m-win_amd64.whl", hash = "sha256:7427d6b211fccae949a67c76251e503f86deb16e6d308fd3a63afd70f0885f11"},
+    {file = "datatable-1.0.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:ae33b368bcbbcfc7fd75d4a96d8e93e7f6f783f1f447be5215d1fb615da823dc"},
+    {file = "datatable-1.0.0-cp38-cp38-manylinux2014_ppc64le.whl", hash = "sha256:2ef6f5712c088c849df299b57927d75695baf5f3ad21f26e9328d111d8128054"},
+    {file = "datatable-1.0.0-cp38-cp38-manylinux_2_12_x86_64.whl", hash = "sha256:4f8760b169a8847e95c5413b65eb3b5e094f049a76fb72096b8dccbac2f4f28a"},
+    {file = "datatable-1.0.0-cp38-cp38-win_amd64.whl", hash = "sha256:0f50ae778452a37fe7fb1de810888652d5048044bdfd0584699c2f5d550a0fc7"},
+    {file = "datatable-1.0.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d407d5f89f77e0b4a1398056eb1e502558e3661010cf913b12e79905604cd230"},
+    {file = "datatable-1.0.0-cp39-cp39-manylinux2014_ppc64le.whl", hash = "sha256:b4978d23ec87441e38a3d4044addb55f3c8e19d97219a3907fd6770450dd37e2"},
+    {file = "datatable-1.0.0-cp39-cp39-manylinux_2_12_x86_64.whl", hash = "sha256:708b3a236f8b7b09096dd704b204fd429a54c93cdf0472abd4001dd106c738ab"},
+    {file = "datatable-1.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:d87725a9285dc3f038244c02e7c71fc06f222f9a48dfc7c322a00f50af50dbc0"},
+    {file = "datatable-1.0.0.tar.gz", hash = "sha256:59a00a4a928f9b06f881d4f7b5e9025c559c4f65facf903a5d08e6e94d84c31e"},
 ]
 es-core-news-sm = [
     {file = "es_core_news_sm-3.1.0-py3-none-any.whl", hash = "sha256:abb19954d0d72a4a06d2ee29ddf8bc564cc72fab93aa34c539ac68bbaf7897c8"},
