@@ -2,12 +2,12 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import numpy as np
-import pytz
-# import nltk
-import tweepy
-import datetime as dt
-from datetime import timedelta
+# import numpy as np
+# import pytz
+# # import nltk
+# import tweepy
+# import datetime as dt
+# from datetime import timedelta
 import spacy
 nlp = spacy.load('es_core_news_sm')
 def normalize(text): #regresa el texto lematizado como lista

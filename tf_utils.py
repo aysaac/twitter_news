@@ -167,3 +167,15 @@ def ResNet50(input_shape=(64, 64, 3), classes=6):
     model = Model(inputs=X_input, outputs=X)
 
     return model
+def conv_model_1(input_shape):#(96X100)
+    X_input = Input(input_shape)
+    X = ZeroPadding2D((3, 3))(X_input)
+    X = Conv2D(filters=6, kernel_size=2, strides=(2, 2), padding='valid', kernel_initializer=glorot_uniform(seed=0))(X)
+    X = BatchNormalization(axis=3)(X, training=True)
+    X = Activation('relu')(X)
+    X = Conv2D(filters=6, kernel_size=2, strides=(2, 2), padding='valid', kernel_initializer=glorot_uniform(seed=0))(X)
+    X = BatchNormalization(axis=3)(X, training=True)
+    X = Activation('relu')(X)
+    X = Flatten()(X)
+    model = Model(inputs=X_input, outputs=X)
+    return model

@@ -16,6 +16,7 @@ tweepy = "^4.4.0"
 beautifulsoup4 = "^4.10.0"
 tensorflow-gpu = "^2.7.0"
 datatable = "^1.0.0"
+wandb = "^0.12.9"
 
 
 [tool.poetry.dev-dependencies]

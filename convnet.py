@@ -1,16 +1,21 @@
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D
-from tensorflow.keras.initializers import random_uniform, glorot_uniform
-from tensorflow.keras.models import Model
+import wandb
+
+from tf_utils import ResNet50
+from wandb.keras import WandbCallback
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 #%%
-# sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
+sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
 #%%
 input_shape=(96,100)
+model=ResNet50(input_shape=(64, 64, 3), classes=6)
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+# model.fit(X_train, Y_train,validation_data=(X_test, y_test), epochs = 10, batch_size = 32)
+#%%
 
-X_input = Input(input_shape)
-X = ZeroPadding2D((3, 3))(X_input)
-X = Conv2D(5,filters=6, kernel_size=1, strides=(2, 2), padding='valid', kernel_initializer=glorot_uniform(seed=0))(X)
-X = BatchNormalization(axis=3)(X, training=True)
-X = Activation('relu')(X)
 
+#%%
+
+    # x=x+1
+#%%
+# wandb.init(project="feminism_analisis", entity="isaac_g",config=wandb_config)
