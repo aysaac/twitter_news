@@ -9,3 +9,5 @@ experiment.ipynb
 /wandb
 news_analisis.ipynb
 learning_pytweet.py
+experiments/loader_exp.py
+/experiments
