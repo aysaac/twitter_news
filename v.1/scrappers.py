@@ -52,9 +52,7 @@ def twitter_results(search_string,until,API):
 
     return  API.search_tweets(q=search_string,until=until)
 #%%
-# bearear='AAAAAAAAAAAAAAAAAAAAAKFPXQEAAAAAjCa02471Ahi1pHh5hNKqL9wzvcQ%3Dn0DfJcEyqjbJFxR3Di7ezsTERQOlio1Qhyn4K4IJEDBQ2iu22w'
-# acces='1020163577859137537-DedLm3FzPGAYi5uqHhdPh7LegOAGm0'
-# secret='Whu92xe1JopsBExmrEKWLcT2YOEKpC2w1M1W9CXkpdKKs'
+
 # auth = tweepy.OAuthHandler('Hxf2c0Mc4ZvRCfG3tgIWDVTRK', 'jj8nBFAiNfINgTsHEgybvWE1ijVFYrPYga0oNs6BPFNA1jkKUM')
 #
 # # palabras=' OR '.join(str(words) for words in palabras
