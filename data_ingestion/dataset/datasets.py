@@ -11,18 +11,18 @@ from PIL import Image
 from torch.utils.data import Dataset
 import spacy
 import gensim
-
-
+from transformers import BertTokenizer
+from definitions import MAX_LEN
 #%%
 
 
 class text_dataset(Dataset):  # declara objeto clase Dataset
 
-    def __init__(self, texts, targets, tokenizer, max_len,transforms):
+    def __init__(self, texts, targets, tokenizer,):
         self.texts = texts
         self.targets = targets
         self.tokenizer = tokenizer
-        self.max_len = max_len  # longitud maxima para padding
+
     def __len__(self) -> int:
         return len(self.texts)
 
@@ -32,46 +32,56 @@ class text_dataset(Dataset):  # declara objeto clase Dataset
 
 
 class spacy_dataset(text_dataset):  # declara objeto clase Dataset
-    def __init__(self, texts, targets,  max_len,transforms):
+    def __init__(self, texts, targets,  transforms):
         # super().__init__(texts, targets, max_len,transforms)
         self.texts = texts
         self.targets = targets
-        self.max_len=max_len
+
         self.tokenizer = spacy.load('es_core_news_sm')
         self.transforms=transforms
-        # self.max_len = max_len  # longitud maxima para padding
+
     def __getitem__(self, item):
         texts = str(self.texts.iloc[item])  # cargael ejemplo de la matriz
-        target = self.targets[item]  # carga el label
-        vectors=[]
+        if self.transforms:
+            words=self.transforms(texts)
 
-        for sentece in texts:
-            text= self.tokenizer(sentece)
-            vector=[]
-            for word in text:
-                vector.append(word.vector)
-            vectors.append(np.array(vector))
-        texts=np.array(vectors)
-        texts=from_numpy(texts)
+
+        words=self.tokenizer(words)
+        target = self.targets[item]  # carga el label
+        vector=[]
+
+        for x in range(MAX_LEN):
+            if x<(len(words)-1):
+                vector.append(words[x].vector)
+            else:
+                vector.append(np.zeros(96))
+
+        words=np.array(vector)
+
+        words=from_numpy(words)
         return {  # dictionario con los enoucdigs
             'texts': texts,  # texto normal
-
+            'embeddings':words,
             'targets': torch.tensor(target, dtype=torch.long)  # carga los labels
         }
 class BERT_dataset(text_dataset):  # declara objeto clase Dataset
-    def __init__(self, texts, targets, max_len,transforms):
+    def __init__(self, texts, targets, transforms,vocab_path):
         self.transforms=transforms
         self.texts = texts
-        self.targets = targets
-        self.max_len = max_len  # longitud maxima para padding
+        self.targets =targets
+        self.tokenizer=BertTokenizer.from_pretrained(
+            vocab_path,do_lower_case=False,pad_to_max_length=True)
+
     def __getitem__(self, item):
 
         texts = str(self.texts.iloc[item])  # cargael ejemplo de la matriz
+        if self.transforms:
+            texts=self.transforms(texts)
         target = self.targets[item]  # carga el label
         encoding = self.tokenizer.encode_plus(  # tokenizador configurado
             texts,
             add_special_tokens=True,
-            max_length=self.max_len,
+            max_length=MAX_LEN,
             return_token_type_ids=False,
             pad_to_max_length=True,
             return_attention_mask=True,
@@ -85,10 +95,10 @@ class BERT_dataset(text_dataset):  # declara objeto clase Dataset
             'targets': torch.tensor(target, dtype=torch.long)  # carga los labels
         }
 class SBW_dataset(text_dataset):  # declara objeto clase Dataset
-    def __init__(self, texts, targets, max_len,transforms):
+    def __init__(self, texts, targets, transforms):
         self.texts = texts
         self.targets = targets
-        self.max_len = max_len  # longitud maxima para padding
+  # longitud maxima para padding
         self.transforms=transforms
         glove = gensim.models.KeyedVectors.load_word2vec_format(
             r'B:\PycharmProjects\twitter_news\data-ingestion\vocabs\SBW-vectors-300-min5.txt')
@@ -104,11 +114,33 @@ class SBW_dataset(text_dataset):  # declara objeto clase Dataset
         self.word2index_key = word2index.keys()
         self.index2embeding=word_embeddings
     def __getitem__(self, item):
-        text = str(self.texts.iloc[item])
+        global indexes
+        texts = str(self.texts.iloc[item])
+        if self.transforms:
+            words=self.transforms(texts)
+        else:
+            words=texts
+        words=words.split()
+        indexes = []
+        for x in range(MAX_LEN):
+            if x >= (len(words) - 1):
+                index = self.word2index['PADDING']
+                indexes.append(index)
+            else:
+                if words[x] in self.word2index_key:
+                    index=self.word2index[words[x]]
+                    indexes.append(index)
+                else:
+                    index = self.word2index['UNKNOWN']
+                    indexes.append(index)
+            embedding = self.index2embeding[indexes]
+
+
         target = self.targets[item]
         target=torch.tensor(target, dtype=torch.long)
 
         return {  # dictionario con los enoucdigs
-            'text': text,# texto normal
+            'text': texts,# texto normal
+            'embeddings':embedding,
             'targets':target   # carga los labels
         }

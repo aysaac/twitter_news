@@ -10,4 +10,7 @@ v.1/experiment.ipynb
 v.1/news_analisis.ipynb
 v.1/learning_pytweet.py
 experiments/loader_exp.py
-/experiments
+/experiment
+/.idea
+/data_ingestion/vocabs/SBW-vectors-300-min5.txt
+/data_ingestion/vocabs/BERT_vocab

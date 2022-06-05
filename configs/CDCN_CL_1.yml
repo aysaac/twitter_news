@@ -1,0 +1,82 @@
+experiment_name: "CDCN_CL_1"
+device: 'cuda' # 'cpu' | 'cuda'
+#mode: 'standard'  # Currently only this option is supported
+mode: 'simultaneous'
+device_index: 0
+run: partial_eval
+train_config:
+    train_ratio: 0.90 # Use the ratio to automatically split train and validation
+    test_ratio: .5 #split validation into train and test
+    parameters:
+
+        epochs: 1
+        num_workers: 0
+        batch_size: 5
+        optimizer:
+            kind: adamw  # adam | sgd
+            weight_decay: 0.00006
+            lr: 0.00001
+#            momentum: 0.9
+    loss: logit
+    datasets:
+        NUAA:
+            path: B:\PycharmProjects\spoof-detection\NUAA\images\all_image_deph_map.txt
+            map_path: B:\PycharmProjects\spoof-detection\NUAA\images\mapping_cut
+            transformations:
+                - {name: Pillow2Numpy}
+                - {name: extract_face, upsample_factor: 1, return_dets: false}
+                - {name: resize, height: 256, width: 256}
+                - {name: to_tensor}
+
+            mapping_transformations:
+                - {name: Pillow2Numpy}
+                - {name: resize, height: 32, width: 32}
+                - {name: normalize_depth}
+                - {name: to_tensor}
+#        KOSMOS:
+#            path: B:\PycharmProjects\spoof-detection\kosmos\all_image_CDCN.txt
+#
+#            transformations:
+#                - {name: Pillow2Numpy}
+#                - {name: extract_face, upsample_factor: 1, return_dets: false}
+#                - {name: resize, height: 256, width: 256}
+#                - {name: to_tensor}
+
+        MTURK:
+            path: B:\PycharmProjects\spoof-detection\MTURK\all_image_deph_map.txt
+            map_path: B:\PycharmProjects\spoof-detection\MTURK\depth-map
+
+            transformations:
+                - {name: Pillow2Numpy}
+                - {name: extract_face, upsample_factor: 1, return_dets: false}
+                - {name: resize, height: 256, width: 256}
+                - {name: to_tensor}
+            mapping_transformations:
+                - {name: Pillow2Numpy}
+                - {name: resize, height: 32, width: 32}
+                - {name: normalize_depth}
+                - {name: to_tensor}
+#        ROSE:
+#            path: B:\PycharmProjects\spoof-detection\MTURK\all_image_deph_map.txt
+#
+#            transformations:
+#                - {name: Pillow2Numpy}
+#                - {name: extract_face, upsample_factor: 1, return_dets: false}
+#                - {name: resize, height: 256, width: 256}
+#                - {name: to_tensor}
+
+model:
+    kind: CDCN_classifier_1
+    resume_model_path:
+#    write_model_name: resnet18-I
+    write_model_dir: B:\PycharmProjects\spoof-detection\spoof_detection\models\experiments
+    save_last_model: true
+    save_best_model: true
+    model_args: {}
+#    model_args: {}
+
+tensorboard:
+    directory: B:\PycharmProjects\spoof-detection\runs
+
+logging:
+    directory: B:\PycharmProjects\spoof-detection\logs

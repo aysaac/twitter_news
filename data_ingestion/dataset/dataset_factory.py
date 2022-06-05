@@ -40,7 +40,7 @@ def get_bert_dataset(dataset_config):
 
 
 def get_SBW_dataset(dataset_config):
-    dataset_source = []
+
     df = pd.read_csv(dataset_config["path"])
     transforms = build_transform(dataset_config["transformations"])
     return SBW_dataset(

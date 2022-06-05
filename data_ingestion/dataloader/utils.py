@@ -3,7 +3,7 @@ from typing import Dict
 import pandas as pd
 from torch.utils.data import ConcatDataset
 from torch.utils.data._utils.collate import default_collate
-from spoof_detection.data_ingestion.dataset.dataset_factory import get_dataset
+from data_ingestion.dataset.dataset_factory import get_dataset
 
 
 def load_dataset(mode, train_config):
